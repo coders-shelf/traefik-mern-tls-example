@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  frontend-app:
+    image: dummy-frontend
+    build:
+      context: .
+    networks:
+      - web-services
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.frontend-nginx.entrypoints=web
+      - traefik.http.routers.frontend-nginx.rule=Host(`frontend.localhost`)
+
+networks:
+  web-services:
+    external: true

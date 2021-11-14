@@ -1,0 +1,14 @@
+api:
+  insecure: true
+
+log:
+  level: DEBUG
+
+providers:
+  docker:
+    exposedByDefault: false
+    network: web-services
+
+entryPoints:
+  web:
+    address: ':80'

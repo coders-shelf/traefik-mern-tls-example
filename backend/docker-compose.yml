@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  backend-api:
+    image: dummy-backend
+    build:
+      context: .
+    networks:
+      - web-services
+      - backend-db
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.backend-api.entrypoints=web
+      - traefik.http.routers.backend-api.rule=Host(`api.localhost`)
+
+networks:
+  web-services:
+    external: true
+  backend-db:
+    external: true
