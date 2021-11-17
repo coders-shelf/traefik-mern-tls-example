@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   const [message, setMessage] = useState('');
   useEffect(() => {
-    fetch('http://api.localhost', {
+    fetch(process.env.REACT_APP_BASE_URL, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

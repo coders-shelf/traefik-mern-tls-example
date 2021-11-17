@@ -1,0 +1,16 @@
+# Dynamic Configuration
+http:
+  routers:
+    dashboard:
+      # ドメインを変更すること
+      rule: Host(`traefik.example.com`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+      tls:
+        certResolver: myresolver
+      service: api@internal
+      middlewares:
+        - auth
+
+  middlewares:
+    auth:
+      basicAuth:
+        usersFile: /etc/traefik/.htpasswd

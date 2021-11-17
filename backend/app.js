@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // mongoose接続設定
 const mongoose = require('mongoose');
-const uri = `mongodb://mongoAdmin:mongoPassword@mongo-example/traefik-test?authSource=admin`;
+const uri = `mongodb://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@mongo-example/traefik-test?authSource=admin`;
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,

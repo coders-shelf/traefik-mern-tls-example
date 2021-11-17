@@ -10,8 +10,9 @@ services:
       - backend-db
     labels:
       - traefik.enable=true
-      - traefik.http.routers.backend-api.entrypoints=web
-      - traefik.http.routers.backend-api.rule=Host(`api.localhost`)
+      - traefik.http.routers.backend-api-secured.entrypoints=websecure
+      - traefik.http.routers.backend-api-secured.rule=Host(`api.example.com`)
+      - traefik.http.routers.backend-api-secured.tls.certresolver=myresolver
 
 networks:
   web-services:

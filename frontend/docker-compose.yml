@@ -9,8 +9,9 @@ services:
       - web-services
     labels:
       - traefik.enable=true
-      - traefik.http.routers.frontend-nginx.entrypoints=web
-      - traefik.http.routers.frontend-nginx.rule=Host(`frontend.localhost`)
+      - traefik.http.routers.frontend-nginx-secured.entrypoints=websecure
+      - traefik.http.routers.frontend-nginx-secured.rule=Host(`frontend.example.com`)
+      - traefik.http.routers.frontend-nginx-secured.tls.certresolver=myresolver
 
 networks:
   web-services:

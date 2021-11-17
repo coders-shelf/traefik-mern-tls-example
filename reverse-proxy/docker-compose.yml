@@ -6,12 +6,13 @@ services:
     restart: always
     ports:
       - '80:80' # http
-      - '8080:8080' # Dashboard用
+      - '443:443' # https
     networks:
       - web-services # Traefik.ymlで指定したネットワーク名であることを確認しておくこと
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock # 必須
       - ./config:/etc/traefik/ # 設定ファイルをマウントするため
+      - ./letsencrypt:/letsencrypt # 自動的にフォルダが作られる。acme.jsonが置かれる
     depends_on:
       - mongo-db
 
@@ -24,24 +25,10 @@ services:
       - mongo-example:/data/db
     environment:
       # ローカルでのテストなのでユーザ名とパスワードは直に書いています
-      MONGO_INITDB_ROOT_USERNAME: mongoAdmin
-      MONGO_INITDB_ROOT_PASSWORD: mongoPassword
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
     networks:
       # Traefikで管理しないのでweb-servicesネットワークを指定する必要はない
-      - backend-db
-
-  mongo-express:
-    image: mongo-express
-    restart: always
-    ports:
-      - 8081:8081
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: mongoAdmin
-      ME_CONFIG_MONGODB_ADMINPASSWORD: mongoPassword
-      ME_CONFIG_MONGODB_SERVER: mongo-example
-    depends_on:
-      - mongo-db
-    networks:
       - backend-db
 
 volumes:
