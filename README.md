@@ -27,7 +27,7 @@ traefik では以下の手順が必要です。
 
    生成したユーザ名とパスワードを`reverse-proxy > config > .htpasswd`に配置してください。
 
-   例：プロジェクトルートで`$ echo $(htpasswd -nb mongoAdmin mongoPassword) > ./reverse-proxy/config/.htpasswd`
+   例：プロジェクトルートで`$ echo $(htpasswd -nb adminUser adminPassword) > ./reverse-proxy/config/.htpasswd`
 
 4. .env に MongoDB サービスに必要なユーザ名、パスワードを記入してください
 
@@ -45,5 +45,11 @@ MongoDB サービスに必要なユーザ名、パスワードを記入してく
 docker-compose.yml でドメインを書き換えてください
 
 # 実行
+
+事前にDockerネットワークを作成しておきます。
+
+`docker network create web-services`
+
+`docker network create backend-db`
 
 実行の際はそれぞれ`sudo docker-compose up -d`でサービスを立ち上げます。
